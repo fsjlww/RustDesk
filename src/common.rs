@@ -1534,19 +1534,31 @@ pub fn load_custom_client() {
     if let Ok(data) = std::fs::read_to_string("./custom.txt") {
         read_custom_client(data.trim());
         // Ensure remote configuration modification is enabled by default
-        {
-            let mut defaults = config::DEFAULT_SETTINGS.write().unwrap();
-            defaults
-                .entry(config::keys::OPTION_ALLOW_REMOTE_CONFIG_MODIFICATION.to_string())
-                .or_insert("Y".to_string());
-        }
-        // Enable hiding connection management window by default
-        {
-            let mut defaults = config::DEFAULT_SETTINGS.write().unwrap();
-            defaults
-                .entry("allow-hide-cm".to_string())
-                .or_insert("Y".to_string());
-        }
+    {
+        let mut defaults = config::DEFAULT_SETTINGS.write().unwrap();
+        defaults
+            .entry(config::keys::OPTION_ALLOW_REMOTE_CONFIG_MODIFICATION.to_string())
+            .or_insert("Y".to_string());
+    }
+	{
+        let mut defaults = config::DEFAULT_SETTINGS.write().unwrap();
+        defaults
+            .entry(config::keys::OPTION_DIRECT_SERVER.to_string())
+            .or_insert("Y".to_string());
+    }
+	{
+        let mut defaults = config::DEFAULT_SETTINGS.write().unwrap();
+        defaults
+            .entry(config::keys::OPTION_ENABLE_AUDIO.to_string())
+            .or_insert("N".to_string());
+    }
+    // Enable hiding connection management window by default
+    {
+        let mut defaults = config::DEFAULT_SETTINGS.write().unwrap();
+        defaults
+            .entry("allow-hide-cm".to_string())
+            .or_insert("Y".to_string());
+    }
         return;
     }
     let Some(path) = std::env::current_exe().map_or(None, |x| x.parent().map(|x| x.to_path_buf()))
@@ -1570,6 +1582,18 @@ pub fn load_custom_client() {
         defaults
             .entry(config::keys::OPTION_ALLOW_REMOTE_CONFIG_MODIFICATION.to_string())
             .or_insert("Y".to_string());
+    }
+	{
+        let mut defaults = config::DEFAULT_SETTINGS.write().unwrap();
+        defaults
+            .entry(config::keys::OPTION_DIRECT_SERVER.to_string())
+            .or_insert("Y".to_string());
+    }
+	{
+        let mut defaults = config::DEFAULT_SETTINGS.write().unwrap();
+        defaults
+            .entry(config::keys::OPTION_ENABLE_AUDIO.to_string())
+            .or_insert("N".to_string());
     }
     // Enable hiding connection management window by default
     {
